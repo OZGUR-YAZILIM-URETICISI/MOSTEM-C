@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOSTEM COĞRAFYA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c10;
+  --bg2: #111418;
+  --bg3: #181c24;
+  --card: #1a1f2b;
+  --border: #2a3040;
+  --text: #e8eaf0;
+  --text2: #8b95a8;
+  --text3: #4a5568;
+  --accent: #3d8bff;
+  --accent2: #1a6aff;
+  --green: #00ff88;
+  --red: #ff4455;
+  --yellow: #ffd700;
+  --founder-color: #00ff88;
+  --founder-badge: #00ff88;
+  --teacher-color: #3d8bff;
+  --student-color: #e8eaf0;
+  --guest-color: #8b95a8;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+[data-theme="light"] {
+  --bg: #f0f2f7;
+  --bg2: #e4e7ef;
+  --bg3: #dde1ec;
+  --card: #ffffff;
+  --border: #c8cfe0;
+  --text: #1a1f2b;
+  --text2: #4a5568;
+  --text3: #8b95a8;
+  --shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+/* ── HEADER ── */
+header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+.logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3d8bff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-81il {
+  background: linear-gradient(135deg, #2d5eff, #00c9ff);
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-81il:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,94,255,0.5); }
+.theme-toggle {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.theme-toggle:hover { background: var(--accent); }
+.user-area { display: flex; align-items: center; gap: 8px; }
+.btn-login {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.btn-login:hover { border-color: var(--accent); color: var(--accent); }
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--accent2); }
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--green));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.user-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.role-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-founder { background: transparent; color: #00ff88; border: 1px solid #00ff88; box-shadow: 0 0 8px #00ff88, 0 0 2px #00ff88; text-shadow: 0 0 6px #00ff88; }
+.badge-teacher { background: rgba(61,139,255,0.2); color: var(--teacher-color); border: 1px solid var(--teacher-color); }
+.badge-student { background: rgba(232,234,240,0.1); color: #ccc; border: 1px solid #555; }
+.badge-guest   { background: rgba(139,149,168,0.15); color: var(--guest-color); border: 1px solid #444; }
+
+/* ── LAYOUT ── */
+.main-wrap {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title span { color: var(--accent); }
+
+/* ── ANNOUNCEMENTS ── */
+.announce-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.announce-card:hover { border-color: var(--accent); }
+.announce-img {
+  width: 100%; max-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+.announce-body { padding: 18px 20px; }
+.announce-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.announce-detail {
+  font-size: 0.88rem;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.announce-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--text3);
+  margin-bottom: 14px;
+}
+.author-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.announce-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-like {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex; align-items: center; gap: 5px;
+  transition: all 0.2s;
+}
+.btn-like:hover, .btn-like.liked { border-color: var(--red); color: var(--red); }
+.btn-comment-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex; align-items: center; gap: 5px;
+  transition: all 0.2s;
+}
+.btn-comment-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.btn-edit-card {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  margin-left: auto;
+  transition: all 0.2s;
+}
+.btn-edit-card:hover { border-color: var(--yellow); color: var(--yellow); }
+.btn-del-card {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+.btn-del-card:hover { border-color: var(--red); color: var(--red); }
+
+/* ── COMMENTS ── */
+.comments-section {
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  padding: 16px 20px;
+  display: none;
+}
+.comments-section.open { display: block; }
+.comment-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+.comment-bubble {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  flex: 1;
+}
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+.comment-text {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.comment-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.comment-input {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.comment-input:focus { border-color: var(--accent); }
+
+/* ── NEW ANNOUNCE FORM ── */
+.new-post-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.form-row { margin-bottom: 14px; }
+.form-label {
+  font-size: 0.8rem;
+  color: var(--text2);
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 600;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+.form-textarea { min-height: 80px; resize: vertical; }
+.img-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+  display: none;
+}
+
+/* ── MODALS ── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 30px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--red); }
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  padding: 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.tab-btn.active { background: var(--accent); color: #fff; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.google-btn {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 11px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  transition: all 0.2s;
+  margin-bottom: 14px;
+}
+.google-btn:hover { border-color: #4285f4; }
+.divider-text {
+  text-align: center;
+  color: var(--text3);
+  font-size: 0.75rem;
+  margin: 12px 0;
+  position: relative;
+}
+.divider-text::before, .divider-text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  height: 1px;
+  background: var(--border);
+}
+.divider-text::before { left: 0; }
+.divider-text::after { right: 0; }
+.role-select-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.role-option {
+  background: var(--bg3);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.role-option:hover { border-color: var(--accent); }
+.role-option.selected { border-color: var(--accent); background: rgba(61,139,255,0.1); }
+.role-option .role-icon { font-size: 1.4rem; margin-bottom: 5px; }
+.role-option .role-name { font-size: 0.78rem; font-weight: 700; }
+.role-option .role-desc { font-size: 0.68rem; color: var(--text3); margin-top: 2px; }
+.error-msg { color: var(--red); font-size: 0.8rem; margin-top: 8px; }
+.success-msg { color: var(--green); font-size: 0.8rem; margin-top: 8px; }
+
+/* ── NAME MODAL ── */
+#nameModal .modal { max-width: 360px; }
+
+/* ── ADMIN PANEL ── */
+#adminModal .modal {
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.admin-panel-title {
+  font-family: 'Orbitron', monospace;
+  color: var(--green);
+  font-size: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.admin-tab {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.admin-tab.active { background: var(--green); color: #000; border-color: var(--green); }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; }
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+.user-row .ur-info { flex: 1; }
+.user-row .ur-name { font-size: 0.88rem; font-weight: 600; }
+.user-row .ur-ip { font-size: 0.75rem; color: var(--text3); font-family: monospace; }
+.user-row .ur-actions { display: flex; gap: 6px; }
+.btn-sm {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  transition: all 0.2s;
+}
+.btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+.btn-sm.danger:hover { border-color: var(--red); color: var(--red); }
+.role-select-sm {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.ban-row { display: flex; gap: 6px; align-items: center; }
+.ban-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  width: 60px;
+}
+.banned-badge {
+  background: rgba(255,68,85,0.2);
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+/* BAN SCREEN */
+#banScreen {
+  position: fixed; inset: 0;
+  background: #060810;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  padding: 20px;
+}
+#banScreen.show { display: flex; }
+#banScreen .ban-icon { font-size: 4rem; }
+#banScreen h2 { font-family: 'Orbitron', monospace; color: var(--red); font-size: 1.4rem; }
+#banScreen p { color: var(--text2); max-width: 400px; line-height: 1.7; }
+
+/* ── DROPDOWN MENU ── */
+.dropdown { position: relative; }
+.dropdown-menu {
+  position: absolute;
+  right: 0; top: calc(100% + 8px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  min-width: 170px;
+  box-shadow: var(--shadow);
+  display: none;
+  overflow: hidden;
+  z-index: 150;
+}
+.dropdown-menu.open { display: block; }
+.dd-item {
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text);
+  display: flex; align-items: center; gap: 9px;
+  transition: background 0.15s;
+}
+.dd-item:hover { background: var(--bg3); }
+.dd-item.danger { color: var(--red); }
+.dd-sep { border-top: 1px solid var(--border); }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--text3);
+}
+.empty-state .es-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.9rem; }
+
+/* ── TOAST ── */
+#toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow);
+  z-index: 500;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+  max-width: 280px;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+#toast.success { border-color: var(--green); color: var(--green); }
+#toast.error { border-color: var(--red); color: var(--red); }
+
+/* ── FOUNDER NAME ── */
+.founder-name { color: #0d8a4f !important; text-shadow: 0 0 6px #16c46f; }
+[data-theme="light"] .founder-name { color: #0a6b3d !important; text-shadow: 0 0 6px #16c46f; }
+[data-theme="dark"] .founder-name { color: #1ddc7a !important; text-shadow: 0 0 8px #0d8a4f; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .logo { font-size: 1rem; }
+  .btn-81il { display: none; }
+  .header-right { gap: 6px; }
+  .modal { padding: 20px 16px; }
+  .admin-tabs { gap: 3px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BAN SCREEN -->
+<div id="banScreen">
+  <div class="ban-icon">🚫</div>
+  <h2>HESABINIZ ASKIYA ALINDI</h2>
+  <p id="banMsg">Hesabınız geçici olarak askıya alınmıştır. IP adresiniz sisteme kaydedilmiştir.</p>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">MOSTEM COĞRAFYA</div>
+  <div class="header-right">
+    <a href="https://ozgur-yazilim-ureticisi.github.io/81ilde496ilim/" target="_blank" class="btn-81il">🗺 81 İL</a>
+    <button class="theme-toggle" id="themeToggle" title="Tema Değiştir">🌙</button>
+    <div class="user-area" id="userArea">
+      <button class="btn-login" onclick="openAuth('login')">Giriş Yap</button>
+      <button class="btn-primary" onclick="openAuth('register')">Kayıt Ol</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- NEW POST AREA (teacher/founder) -->
+  <div class="new-post-box" id="newPostBox" style="display:none;">
+    <div class="section-title">📢 <span>Yeni Duyuru Yayınla</span></div>
+    <div class="form-row">
+      <label class="form-label">Başlık</label>
+      <input class="form-input" id="postTitle" placeholder="Duyuru başlığı...">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Detay</label>
+      <textarea class="form-textarea" id="postDetail" placeholder="Duyuru içeriği..."></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Görsel (isteğe bağlı)</label>
+      <input class="form-input" type="file" id="postImg" accept="image/*" onchange="previewImg(this)">
+      <img id="postImgPreview" class="img-preview" alt="Önizleme">
+    </div>
+    <button class="btn-primary" onclick="publishPost()">📤 Yayınla</button>
+  </div>
+
+  <!-- ANNOUNCEMENTS -->
+  <div class="section-title">📋 <span>Duyurular</span></div>
+  <div id="announcements"></div>
+
+</div>
+
+<!-- ═══════════ AUTH MODAL ═══════════ -->
+<div class="overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>🔐 Hesap</span>
+      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('login')">Giriş Yap</button>
+      <button class="tab-btn" onclick="switchTab('register')">Kayıt Ol</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="tab-content active" id="tab-login">
+      <button class="google-btn" onclick="googleLogin()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"/><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04c-.72.48-1.63.96-2.7.96a4.83 4.83 0 0 1-4.56-3.34H1.7v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"/><path d="M4.42 10.64A4.86 4.86 0 0 1 4.17 9c0-.57.1-1.12.25-1.64V5.29H1.7A8 8 0 0 0 .98 9c0 1.29.31 2.51.72 3.71l2.72-2.07z" fill="#FBBC05"/><path d="M8.98 3.58c1.32 0 2.5.45 3.44 1.35l2.56-2.56C13.95.93 11.82 0 8.98 0A8 8 0 0 0 1.7 5.29l2.72 2.07C5.34 5.2 6.98 3.58 8.98 3.58z" fill="#EA4335"/></svg>
+        Google ile Giriş Yap
+      </button>
+      <div class="divider-text">veya</div>
+      <div class="form-row">
+        <label class="form-label">Ad Soyad</label>
+        <input class="form-input" id="loginUser" placeholder="Kayıt olduğunuz isim">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Şifre</label>
+        <input class="form-input" type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doLogin()">Giriş Yap</button>
+      <div id="loginErr" class="error-msg"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="tab-content" id="tab-register">
+      <button class="google-btn" onclick="googleLogin()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"/><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04c-.72.48-1.63.96-2.7.96a4.83 4.83 0 0 1-4.56-3.34H1.7v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"/><path d="M4.42 10.64A4.86 4.86 0 0 1 4.17 9c0-.57.1-1.12.25-1.64V5.29H1.7A8 8 0 0 0 .98 9c0 1.29.31 2.51.72 3.71l2.72-2.07z" fill="#FBBC05"/><path d="M8.98 3.58c1.32 0 2.5.45 3.44 1.35l2.56-2.56C13.95.93 11.82 0 8.98 0A8 8 0 0 0 1.7 5.29l2.72 2.07C5.34 5.2 6.98 3.58 8.98 3.58z" fill="#EA4335"/></svg>
+        Google ile Kayıt Ol (Misafir)
+      </button>
+      <div class="divider-text">veya</div>
+
+      <div class="form-row">
+        <label class="form-label">Ad Soyad</label>
+        <input class="form-input" id="regName" placeholder="Adınız Soyadınız">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Şifre</label>
+        <input class="form-input" type="password" id="regPass" placeholder="Şifre oluştur">
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doRegister()">Misafir Olarak Kayıt Ol</button>
+      <div id="regErr" class="error-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ NAME MODAL (Google sonrası) ═══════════ -->
+<div class="overlay" id="nameModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>👋 Hoş Geldin!</span>
+    </div>
+    <p style="font-size:0.88rem;color:var(--text2);margin-bottom:16px;">Google ile giriş yaptınız. Lütfen görünecek adınızı girin.<br><span style="color:var(--text3);font-size:0.8rem;">Google ile kayıt olan hesaplar <strong>Misafir</strong> olarak başlar.</span></p>
+    <div class="form-row">
+      <label class="form-label">Görünen Ad</label>
+      <input class="form-input" id="googleNameInput" placeholder="Adınız Soyadınız">
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="confirmGoogleName()">Devam Et</button>
+    <div id="nameErr" class="error-msg"></div>
+  </div>
+</div>
+
+<!-- ═══════════ ADMIN MODAL ═══════════ -->
+<div class="overlay" id="adminModal">
+  <div class="modal" style="max-width:720px;">
+    <div class="modal-title">
+      <span class="admin-panel-title">⚙️ Admin Paneli</span>
+      <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('users')">👥 Kullanıcılar</button>
+      <button class="admin-tab" onclick="switchAdminTab('banned')">🚫 Banlılar</button>
+      <button class="admin-tab" onclick="switchAdminTab('cards')">🪪 Öğrenci Kartı Kontrol</button>
+      <button class="admin-tab" onclick="switchAdminTab('logs')">📋 Log Kayıtları</button>
+    </div>
+    <div class="admin-tab-content active" id="atab-users">
+      <div id="adminUserList"></div>
+    </div>
+    <div class="admin-tab-content" id="atab-banned">
+      <div id="adminBanList"></div>
+    </div>
+    <div class="admin-tab-content" id="atab-cards">
+      <div id="adminCardList"></div>
+    </div>
+    <div class="admin-tab-content" id="atab-logs">
+      <div id="adminLogList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ EDIT MODAL ═══════════ -->
+<div class="overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>✏️ Duyuruyu Düzenle</span>
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+    </div>
+    <input type="hidden" id="editId">
+    <div class="form-row">
+      <label class="form-label">Başlık</label>
+      <input class="form-input" id="editTitle">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Detay</label>
+      <textarea class="form-textarea" id="editDetail"></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="saveEdit()">Kaydet</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- Firebase SDK (sadece Auth için — veri JSONBin.io'da tutulur) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAWpQ0NkAxlgPmjBXtuyuA3XTFKbmMNZ0c",
+  authDomain: "mostem-man.firebaseapp.com",
+  projectId: "mostem-man",
+  storageBucket: "mostem-man.firebasestorage.app",
+  messagingSenderId: "1016687986607",
+  appId: "1:1016687986607:web:9d6ff97231ee906fd9d15a"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const provider = new GoogleAuthProvider();
+
+// Expose to global scope for onclick handlers
+window._firebaseAuth = auth;
+window._googleProvider = provider;
+window._signInWithPopup = signInWithPopup;
+window._signOut = signOut;
+
+// Auth state listener
+onAuthStateChanged(auth, (firebaseUser) => {
+  if (firebaseUser && window._pendingGoogleUser) {
+    // handled inside googleLogin flow
+  }
+});
+</script>
+
+<!-- JSONBin.io tabanlı paylaşımlı veri katmanı -->
+<script>
+const JSONBIN_BIN_ID = '6a437f5fda38895dfe14b08c';
+const JSONBIN_MASTER_KEY = '$2a$10$Bua7ZIEHqYutdN6b5VewGu7Pn9MLKnpMDoFAIQJUtfiUZbBtqr3Sa';
+const JSONBIN_BASE = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
+
+async function jsonbinRead() {
+  const res = await fetch(JSONBIN_BASE + '/latest', {
+    method: 'GET',
+    headers: {
+      'X-Master-Key': JSONBIN_MASTER_KEY,
+      'X-Bin-Meta': 'false'
+    }
+  });
+  if (!res.ok) throw new Error('JSONBin okuma hatası: ' + res.status);
+  return await res.json();
+}
+
+async function jsonbinWrite(data) {
+  const res = await fetch(JSONBIN_BASE, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSONBIN_MASTER_KEY,
+      'X-Bin-Versioning': 'false'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error('JSONBin yazma hatası: ' + res.status);
+  return await res.json();
+}
+
+window._jsonbinRead = jsonbinRead;
+window._jsonbinWrite = jsonbinWrite;
+window._jsonbinReady = true;
+if (window._onJsonbinReady) window._onJsonbinReady();
+</script>
+
+<script>
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+let state = {
+  currentUser: null,
+  theme: 'dark',
+  googleRole: 'student',
+  posts: [],
+  users: [],
+  bannedIPs: [],
+  adminLogs: [],
+};
+
+// Simulated IP for demo (gerçek IP tespiti backend gerektirir; Firestore client-side bunu sağlayamaz)
+const MY_IP = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+
+let _saving = false;
+let _pendingSave = false;
+let _pollInterval = null;
+let _firstSyncDone = false;
+let _lastKnownVersion = null; // değişiklik tespiti için basit hash
+
+// ── JSONBin'den başlangıç verisini oku, yoksa oluştur ──
+async function loadState() {
+  try {
+    const cached = localStorage.getItem('mostemSession');
+    if (cached) {
+      const s = JSON.parse(cached);
+      if (s.currentUser) state.currentUser = s.currentUser;
+      if (s.theme) state.theme = s.theme;
+    }
+  } catch(e) {}
+
+  await waitForJsonbin();
+
+  try {
+    const data = await window._jsonbinRead();
+    applyRemoteData(data);
+    _lastKnownVersion = JSON.stringify(data);
+  } catch (e) {
+    console.error('JSONBin okuma hatası:', e);
+    // İlk kurulum veya bağlantı hatası: yerel founder + demo ile devam et
+    ensureFounder();
+    ensureDemoPost();
+    try { await pushFullState(); } catch(e2) { console.error(e2); }
+  }
+
+  // Gerçek zamanlı senkronizasyon yerine periyodik yoklama (polling) —
+  // JSONBin.io websocket/anlık güncelleme desteklemiyor, bu yüzden 4 saniyede bir kontrol ediyoruz.
+  _pollInterval = setInterval(async () => {
+    try {
+      const data = await window._jsonbinRead();
+      const serialized = JSON.stringify(data);
+      if (serialized !== _lastKnownVersion) {
+        _lastKnownVersion = serialized;
+        applyRemoteData(data);
+        renderUserArea();
+        renderPosts();
+        if (document.getElementById('adminModal')?.classList.contains('open')) {
+          renderAdminUsers(); renderAdminBanned(); renderAdminCards(); renderAdminLogs();
+        }
+        checkBan();
+      }
+    } catch (e) {
+      console.error('JSONBin yoklama hatası:', e);
+    }
+  }, 4000);
+
+  _firstSyncDone = true;
+}
+
+function waitForJsonbin() {
+  return new Promise(resolve => {
+    if (window._jsonbinReady) return resolve();
+    window._onJsonbinReady = resolve;
+    // Güvenlik: 5 sn içinde gelmezse yine de devam et (UI kilitlenmesin)
+    setTimeout(resolve, 5000);
+  });
+}
+
+function applyRemoteData(data) {
+  state.posts = data.posts || [];
+  state.users = data.users || [];
+  state.bannedIPs = (data.bannedIPs || []).map(entry =>
+    typeof entry === 'string' ? { ip: entry, until: null } : entry
+  );
+  state.adminLogs = data.adminLogs || [];
+  ensureFounder();
+}
+
+function ensureFounder() {
+  if (!state.users.find(u => u.username === 'YiğitEfeEĞİN')) {
+    state.users.push({
+      username: 'YiğitEfeEĞİN',
+      password: '21018480',
+      displayName: 'Yiğit Efe EĞİN',
+      role: 'founder',
+      ip: '0.0.0.0',
+      banned: false,
+      banUntil: null
+    });
+  }
+}
+
+function ensureDemoPost() {
+  if (state.posts.length === 0) {
+    state.posts.push({
+      id: 'demo1',
+      title: 'MOSTEM Coğrafya Forumuna Hoş Geldiniz!',
+      detail: 'Bu platform coğrafya öğrencileri ve öğretmenleri için hazırlanmıştır. Duyurular, sorular ve tartışmalar için doğru yerdesiniz.',
+      author: 'Yiğit Efe EĞİN',
+      authorRole: 'founder',
+      img: null,
+      likes: [],
+      comments: [],
+      date: new Date().toLocaleDateString('tr-TR')
+    });
+  }
+}
+
+// ── Tüm paylaşılan veriyi JSONBin'e yaz (debounce'lu) ──
+async function pushFullState() {
+  if (!window._jsonbinReady) return;
+  const payload = {
+    posts: state.posts,
+    users: state.users,
+    bannedIPs: state.bannedIPs,
+    adminLogs: state.adminLogs,
+    updatedAt: new Date().toISOString()
+  };
+  try {
+    await window._jsonbinWrite(payload);
+    _lastKnownVersion = JSON.stringify(payload);
+  } catch (e) {
+    console.error('JSONBin yazma hatası:', e);
+    toast('Sunucuya bağlanırken bir sorun oluştu. İnternetinizi kontrol edin.', 'error');
+  }
+}
+
+// saveState: paylaşılan veriyi JSONBin'e, oturum/tema bilgisini localStorage'a yazar
+function saveState() {
+  // Yerel oturum/tema bilgisi (cihaza özel, paylaşılan veri değil)
+  localStorage.setItem('mostemSession', JSON.stringify({
+    currentUser: state.currentUser,
+    theme: state.theme
+  }));
+
+  // Paylaşılan veri JSONBin'e — art arda gelen çağrıları debounce ile birleştir
+  if (_saving) { _pendingSave = true; return; }
+  _saving = true;
+  pushFullState().finally(() => {
+    _saving = false;
+    if (_pendingSave) {
+      _pendingSave = false;
+      saveState();
+    }
+  });
+}
+
+// ════════════════════════════════════════════
+// THEME
+// ════════════════════════════════════════════
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeToggle').textContent = t === 'dark' ? '🌙' : '☀️';
+}
+document.getElementById('themeToggle').addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(state.theme);
+  saveState();
+});
+
+// ════════════════════════════════════════════
+// BAN CHECK
+// ════════════════════════════════════════════
+function checkBan() {
+  // Süresi dolmuş IP banlarını temizle
+  const now = new Date();
+  let changed = false;
+  state.bannedIPs = state.bannedIPs.filter(entry => {
+    const until = typeof entry === 'string' ? null : entry.until;
+    if (until && new Date(until) <= now) { changed = true; return false; }
+    return true;
+  });
+  if (changed) saveState();
+
+  const ipBan = state.bannedIPs.find(entry => (typeof entry === 'string' ? entry : entry.ip) === MY_IP);
+  if (ipBan) {
+    const until = typeof ipBan === 'string' ? null : ipBan.until;
+    document.getElementById('banScreen').classList.add('show');
+    const untilText = until ? ' Ban bitiş: ' + new Date(until).toLocaleString('tr-TR') : '';
+    document.getElementById('banMsg').textContent = 'IP adresiniz (' + MY_IP + ') sisteme kaydedilmiştir ve erişiminiz kısıtlanmıştır.' + untilText;
+    return true;
+  }
+
+  if (state.currentUser) {
+    const u = state.users.find(x => x.username === state.currentUser.username);
+    if (u && u.banned) {
+      if (!u.banUntil || new Date(u.banUntil) > now) {
+        document.getElementById('banScreen').classList.add('show');
+        const until = u.banUntil ? ' Ban bitiş: ' + new Date(u.banUntil).toLocaleString('tr-TR') : '';
+        document.getElementById('banMsg').textContent = 'Hesabınız askıya alınmıştır.' + until + ' IP: ' + MY_IP;
+        return true;
+      } else {
+        // Süre dolmuş — banı kaldır
+        u.banned = false;
+        u.banUntil = null;
+        state.bannedIPs = state.bannedIPs.filter(entry => (typeof entry === 'string' ? entry : entry.ip) !== u.ip);
+        saveState();
+      }
+    }
+  }
+  return false;
+}
+
+// Periyodik kontrol: süresi dolan banları otomatik kaldır (sayfa açıkken)
+setInterval(() => {
+  const now = new Date();
+  let changed = false;
+  state.bannedIPs = state.bannedIPs.filter(entry => {
+    const until = typeof entry === 'string' ? null : entry.until;
+    if (until && new Date(until) <= now) { changed = true; return false; }
+    return true;
+  });
+  state.users.forEach(u => {
+    if (u.banned && u.banUntil && new Date(u.banUntil) <= now) {
+      u.banned = false;
+      u.banUntil = null;
+      changed = true;
+    }
+  });
+  if (changed) {
+    saveState();
+    if (document.getElementById('banScreen').classList.contains('show')) {
+      checkBan();
+      if (!state.bannedIPs.find(e => (typeof e==='string'?e:e.ip)===MY_IP) &&
+          !(state.currentUser && state.users.find(x=>x.username===state.currentUser.username)?.banned)) {
+        document.getElementById('banScreen').classList.remove('show');
+      }
+    }
+  }
+}, 15000);
+
+// ════════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════════
+function openAuth(tab) {
+  openModal('authModal');
+  switchTab(tab);
+}
+function switchTab(t) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0&&t==='login')||(i===1&&t==='register'));
+  });
+  document.getElementById('tab-login').classList.toggle('active', t==='login');
+  document.getElementById('tab-register').classList.toggle('active', t==='register');
+  document.getElementById('loginErr').textContent = '';
+  document.getElementById('regErr').textContent = '';
+}
+function selectRole(el) {
+  el.closest('.role-select-grid').querySelectorAll('.role-option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function selectGoogleRole(el) {
+  el.closest('.role-select-grid').querySelectorAll('.role-option').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  state.googleRole = el.dataset.role;
+}
+function getSelectedRole(grid) {
+  const sel = grid.querySelector('.role-option.selected');
+  return sel ? sel.dataset.role : 'student';
+}
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if (!u || !p) { document.getElementById('loginErr').textContent = 'Tüm alanları doldurun.'; return; }
+
+  // Founder check (isim veya kullanıcı adıyla)
+  if ((u === 'Yiğit Efe EĞİN' || u === 'YiğitEfeEĞİN') && p === '21018480') {
+    loginAs({ username: 'YiğitEfeEĞİN', displayName: 'Yiğit Efe EĞİN', role: 'founder', ip: MY_IP });
+    return;
+  }
+  // displayName ile eşleştir
+  const user = state.users.find(x => x.displayName === u && x.password === p);
+  if (!user) { document.getElementById('loginErr').textContent = 'İsim veya şifre hatalı.'; return; }
+  loginAs(user);
+}
+
+function doRegister() {
+  const n = document.getElementById('regName').value.trim();
+  const p = document.getElementById('regPass').value;
+  if (!n || !p) { document.getElementById('regErr').textContent = 'Tüm alanları doldurun.'; return; }
+  if (state.users.find(x => x.displayName === n)) { document.getElementById('regErr').textContent = 'Bu isim zaten kayıtlı.'; return; }
+  const username = n.toLowerCase().replace(/\s+/g, '_') + '_' + Date.now().toString().slice(-4);
+  const newUser = { username, password: p, displayName: n, role: 'guest', ip: MY_IP, banned: false, banUntil: null };
+  state.users.push(newUser);
+  saveState();
+  loginAs(newUser);
+}
+
+function googleLogin() {
+  closeModal('authModal');
+  // Wait for Firebase to be available
+  if (!window._firebaseAuth || !window._signInWithPopup) {
+    toast('Firebase yükleniyor, lütfen bekleyin...', 'error');
+    return;
+  }
+  window._signInWithPopup(window._firebaseAuth, window._googleProvider)
+    .then(result => {
+      const fbUser = result.user;
+      // Check if this Google UID already registered
+      const existing = state.users.find(u => u.googleUID === fbUser.uid);
+      if (existing) {
+        loginAs(existing);
+        return;
+      }
+      // New Google user — ask for display name & role
+      window._pendingGoogleUID = fbUser.uid;
+      window._pendingGoogleEmail = fbUser.email;
+      // Pre-fill with Google display name
+      document.getElementById('googleNameInput').value = fbUser.displayName || '';
+      state.googleRole = 'student';
+      document.querySelector('#nameModal .role-select-grid').querySelectorAll('.role-option').forEach((el,i) => {
+        el.classList.toggle('selected', i === 0);
+      });
+      document.getElementById('nameErr').textContent = '';
+      openModal('nameModal');
+    })
+    .catch(err => {
+      console.error(err);
+      if (err.code === 'auth/popup-closed-by-user') return;
+      toast('Google girişi başarısız: ' + err.message, 'error');
+    });
+}
+
+function confirmGoogleName() {
+  const name = document.getElementById('googleNameInput').value.trim();
+  if (!name) { document.getElementById('nameErr').textContent = 'Lütfen adınızı girin.'; return; }
+  const uid = window._pendingGoogleUID || ('google_' + Date.now());
+  const username = 'google_' + uid.slice(0, 12);
+  if (state.users.find(u => u.username === username)) {
+    loginAs(state.users.find(u => u.username === username));
+    closeModal('nameModal');
+    return;
+  }
+  const u = {
+    username,
+    googleUID: uid,
+    googleEmail: window._pendingGoogleEmail || '',
+    displayName: name,
+    role: 'guest', // always guest on first registration
+    ip: MY_IP,
+    banned: false,
+    banUntil: null,
+    google: true
+  };
+  state.users.push(u);
+  saveState();
+  loginAs(u);
+  closeModal('nameModal');
+  window._pendingGoogleUID = null;
+  window._pendingGoogleEmail = null;
+}
+
+function loginAs(user) {
+  state.currentUser = user;
+  // Update ip
+  const found = state.users.find(x => x.username === user.username);
+  if (found) found.ip = MY_IP;
+  saveState();
+  closeModal('authModal');
+  renderUserArea();
+  renderPosts();
+  // Öğrenci kartı başka bir hesapta tekrar doğrulandığı için yetki kaldırılmışsa bilgilendir
+  if (found && found.cardRevokedReason) {
+    toast(found.cardRevokedReason, 'error');
+    found.cardRevokedReason = null; // bir kez göster
+    saveState();
+  } else {
+    toast('Hoş geldin, ' + user.displayName + '!', 'success');
+  }
+  if (checkBan()) state.currentUser = null;
+}
+
+function logout() {
+  // Firebase sign out if google user
+  if (state.currentUser && state.currentUser.google && window._firebaseAuth && window._signOut) {
+    window._signOut(window._firebaseAuth).catch(() => {});
+  }
+  state.currentUser = null;
+  saveState();
+  renderUserArea();
+  renderPosts();
+  closeDropdown();
+  toast('Çıkış yapıldı.', 'success');
+}
+
+// ════════════════════════════════════════════
+// USER AREA
+// ════════════════════════════════════════════
+function renderUserArea() {
+  const area = document.getElementById('userArea');
+  const u = state.currentUser;
+  if (!u) {
+    area.innerHTML = `
+      <button class="btn-login" onclick="openAuth('login')">Giriş Yap</button>
+      <button class="btn-primary" onclick="openAuth('register')">Kayıt Ol</button>`;
+    document.getElementById('newPostBox').style.display = 'none';
+    return;
+  }
+  const badgeClass = {founder:'badge-founder',teacher:'badge-teacher',student:'badge-student',guest:'badge-guest'}[u.role] || 'badge-guest';
+  const badgeLabel = {founder:'Kurucu',teacher:'Öğretmen',student:'Öğrenci',guest:'Misafir'}[u.role] || 'Misafir';
+  const nameClass = u.role === 'founder' ? 'founder-name' : '';
+  area.innerHTML = `
+    <div class="dropdown">
+      <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="toggleDropdown()">
+        <div class="avatar">${u.displayName[0].toUpperCase()}</div>
+        <div>
+          <div class="user-name ${nameClass}">${u.displayName}</div>
+          <span class="role-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+      </div>
+      <div class="dropdown-menu" id="dropdownMenu">
+        ${u.role === 'founder' ? `<div class="dd-item" onclick="openAdminPanel()">⚙️ Admin Paneli</div><div class="dd-sep"></div>` : ''}
+        ${u.role === 'guest' ? `<div class="dd-item" onclick="openStudentVerify()">🪪 Öğrenci Kartı Doğrula</div><div class="dd-sep"></div>` : ''}
+        <div class="dd-item danger" onclick="logout()">🚪 Çıkış Yap</div>
+      </div>
+    </div>`;
+  // Show new post box for founder or teacher
+  document.getElementById('newPostBox').style.display = (u.role === 'founder' || u.role === 'teacher') ? 'block' : 'none';
+}
+
+function toggleDropdown() {
+  document.getElementById('dropdownMenu')?.classList.toggle('open');
+}
+function closeDropdown() {
+  document.getElementById('dropdownMenu')?.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.dropdown')) closeDropdown();
+});
+
+// ════════════════════════════════════════════
+// POSTS
+// ════════════════════════════════════════════
+function previewImg(input) {
+  const preview = document.getElementById('postImgPreview');
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => { preview.src = e.target.result; preview.style.display = 'block'; };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function publishPost() {
+  const title = document.getElementById('postTitle').value.trim();
+  const detail = document.getElementById('postDetail').value.trim();
+  if (!title || !detail) { toast('Başlık ve detay zorunludur.', 'error'); return; }
+  const u = state.currentUser;
+  const imgEl = document.getElementById('postImgPreview');
+  const img = (imgEl.style.display !== 'none' && imgEl.src) ? imgEl.src : null;
+  const post = {
+    id: 'p' + Date.now(),
+    title, detail, img,
+    author: u.displayName,
+    authorRole: u.role,
+    likes: [],
+    comments: [],
+    date: new Date().toLocaleDateString('tr-TR')
+  };
+  state.posts.unshift(post);
+  saveState();
+  document.getElementById('postTitle').value = '';
+  document.getElementById('postDetail').value = '';
+  document.getElementById('postImg').value = '';
+  imgEl.style.display = 'none'; imgEl.src = '';
+  renderPosts();
+  toast('Duyuru yayınlandı!', 'success');
+}
+
+function renderPosts() {
+  const container = document.getElementById('announcements');
+  if (state.posts.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="es-icon">📭</div><p>Henüz duyuru yok.</p></div>`;
+    return;
+  }
+  container.innerHTML = state.posts.map(p => renderPost(p)).join('');
+}
+
+function renderPost(p) {
+  const u = state.currentUser;
+  const isFounder = u && u.role === 'founder';
+  const isOwner = u && (u.role === 'founder' || (u.displayName === p.author && u.role === 'teacher'));
+  const liked = u && p.likes.includes(u.username);
+  const canLike = u && (u.role !== null); // logged in
+  const canComment = u && (u.role === 'student' || u.role === 'teacher' || u.role === 'founder');
+  const authorBadge = badgeHTML(p.authorRole, p.author);
+
+  const imgHtml = p.img ? `<img class="announce-img" src="${p.img}" alt="">` : '';
+  const editBtns = isOwner ? `
+    <button class="btn-edit-card" onclick="openEdit('${p.id}')">✏️ Düzenle</button>
+    <button class="btn-del-card" onclick="deletePost('${p.id}')">🗑️ Sil</button>` : '';
+
+  const commentsHtml = p.comments.map(c => `
+    <div class="comment-item">
+      <div class="avatar" style="width:28px;height:28px;font-size:0.75rem;">${c.author[0].toUpperCase()}</div>
+      <div class="comment-bubble">
+        <div class="comment-header">
+          ${badgeHTML(c.authorRole, c.author)}
+          <span style="font-size:0.72rem;color:var(--text3)">${c.date}</span>
+          ${isFounder ? `<button class="btn-sm danger" style="margin-left:auto" onclick="deleteComment('${p.id}','${c.id}')">🗑️</button>` : ''}
+        </div>
+        <div class="comment-text">${escHTML(c.text)}</div>
+      </div>
+    </div>`).join('');
+
+  const commentInputHtml = canComment ? `
+    <div class="comment-input-row">
+      <input class="comment-input" id="ci-${p.id}" placeholder="Yorumunuzu yazın..." onkeydown="if(event.key==='Enter')submitComment('${p.id}')">
+      <button class="btn-primary" onclick="submitComment('${p.id}')">Gönder</button>
+    </div>` : (u ? `<p style="font-size:0.78rem;color:var(--text3);margin-top:8px;">Misafir hesabı yorum yapamaz.</p>` : `<p style="font-size:0.78rem;color:var(--text3);margin-top:8px;">Yorum yapmak için giriş yapın.</p>`);
+
+  return `
+  <div class="announce-card" id="post-${p.id}">
+    ${imgHtml}
+    <div class="announce-body">
+      <div class="announce-title">${escHTML(p.title)}</div>
+      <div class="announce-detail">${escHTML(p.detail)}</div>
+      <div class="announce-meta">
+        <div class="author-inline">${authorBadge}</div>
+        <span>•</span><span>${p.date}</span>
+        <span>• 💬 ${p.comments.length}</span>
+      </div>
+      <div class="announce-actions">
+        <button class="btn-like ${liked?'liked':''}" onclick="${canLike?`toggleLike('${p.id}')`:`openAuth('login')`}">
+          ❤️ ${p.likes.length}
+        </button>
+        <button class="btn-comment-toggle" onclick="toggleComments('${p.id}')">
+          💬 Yorumlar
+        </button>
+        ${editBtns}
+      </div>
+    </div>
+    <div class="comments-section" id="cs-${p.id}">
+      ${commentsHtml || '<p style="font-size:0.8rem;color:var(--text3);margin-bottom:10px;">Henüz yorum yok.</p>'}
+      ${commentInputHtml}
+    </div>
+  </div>`;
+}
+
+function badgeHTML(role, name) {
+  const nameClass = role === 'founder' ? 'founder-name' : '';
+  const bClass = {founder:'badge-founder',teacher:'badge-teacher',student:'badge-student',guest:'badge-guest'}[role] || 'badge-guest';
+  const bLabel = {founder:'Kurucu',teacher:'Öğretmen',student:'Öğrenci',guest:'Misafir'}[role] || '';
+  return `<span class="user-name ${nameClass}" style="font-size:0.82rem">${escHTML(name)}</span>
+          ${bLabel ? `<span class="role-badge ${bClass}">${bLabel}</span>` : ''}`;
+}
+
+function toggleComments(pid) {
+  document.getElementById('cs-' + pid)?.classList.toggle('open');
+}
+
+function toggleLike(pid) {
+  if (!state.currentUser) { openAuth('login'); return; }
+  const post = state.posts.find(p => p.id === pid);
+  if (!post) return;
+  const uname = state.currentUser.username;
+  const idx = post.likes.indexOf(uname);
+  if (idx >= 0) post.likes.splice(idx, 1);
+  else post.likes.push(uname);
+  saveState();
+  renderPosts();
+  // Re-open comments if open
+}
+
+function submitComment(pid) {
+  const input = document.getElementById('ci-' + pid);
+  if (!input || !input.value.trim()) return;
+  const u = state.currentUser;
+  if (!u || (u.role !== 'student' && u.role !== 'teacher' && u.role !== 'founder')) return;
+  const text = input.value.trim();
+  // Profanity check — yalnızca ÖĞRENCİ yorumları için geçerli; öğretmen ve kurucu muaftır
+  if (u.role === 'student') {
+    const badWords = findBadWords(text);
+    if (badWords.length > 0) {
+      showProfanityWarning(pid, u, badWords);
+      return; // yorum eklenmez, fonksiyon burada durur
+    }
+  }
+  const post = state.posts.find(p => p.id === pid);
+  if (!post) return;
+  post.comments.push({
+    id: 'c' + Date.now(),
+    author: u.displayName,
+    authorRole: u.role,
+    text: text,
+    date: new Date().toLocaleDateString('tr-TR')
+  });
+  input.value = '';
+  saveState();
+  renderPosts();
+  document.getElementById('cs-' + pid)?.classList.add('open');
+}
+
+function deletePost(pid) {
+  if (!state.currentUser || (state.currentUser.role !== 'founder' && state.currentUser.role !== 'teacher')) return;
+  state.posts = state.posts.filter(p => p.id !== pid);
+  saveState();
+  renderPosts();
+  toast('Duyuru silindi.', 'success');
+}
+
+function deleteComment(pid, cid) {
+  const post = state.posts.find(p => p.id === pid);
+  if (!post) return;
+  post.comments = post.comments.filter(c => c.id !== cid);
+  saveState();
+  renderPosts();
+  document.getElementById('cs-' + pid)?.classList.add('open');
+}
+
+// ── EDIT ──
+function openEdit(pid) {
+  const post = state.posts.find(p => p.id === pid);
+  if (!post) return;
+  document.getElementById('editId').value = pid;
+  document.getElementById('editTitle').value = post.title;
+  document.getElementById('editDetail').value = post.detail;
+  openModal('editModal');
+}
+function saveEdit() {
+  const pid = document.getElementById('editId').value;
+  const post = state.posts.find(p => p.id === pid);
+  if (!post) return;
+  post.title = document.getElementById('editTitle').value.trim() || post.title;
+  post.detail = document.getElementById('editDetail').value.trim() || post.detail;
+  saveState();
+  renderPosts();
+  closeModal('editModal');
+  toast('Düzenleme kaydedildi.', 'success');
+}
+
+// ════════════════════════════════════════════
+// ADMIN PANEL
+// ════════════════════════════════════════════
+function openAdminPanel() {
+  closeDropdown();
+  renderAdminUsers();
+  renderAdminBanned();
+  renderAdminCards();
+  renderAdminLogs();
+  openModal('adminModal');
+}
+function switchAdminTab(t) {
+  document.querySelectorAll('.admin-tab').forEach((b,i) => {
+    b.classList.toggle('active', (i===0&&t==='users')||(i===1&&t==='banned')||(i===2&&t==='cards')||(i===3&&t==='logs'));
+  });
+  document.getElementById('atab-users').classList.toggle('active', t==='users');
+  document.getElementById('atab-banned').classList.toggle('active', t==='banned');
+  document.getElementById('atab-cards').classList.toggle('active', t==='cards');
+  document.getElementById('atab-logs').classList.toggle('active', t==='logs');
+}
+
+function renderAdminCards() {
+  const list = document.getElementById('adminCardList');
+  const verified = state.users.filter(u => u.studentCardId && u.studentCardInfo);
+  if (!verified.length) {
+    list.innerHTML = '<p style="color:var(--text3);font-size:0.85rem">Henüz doğrulanmış öğrenci kartı yok.</p>';
+    return;
+  }
+  list.innerHTML = `
+    <p style="font-size:0.78rem;color:var(--text3);margin-bottom:12px;">
+      Aşağıda doğrulanmış tüm öğrenci kartları listelenir. Fotoğraflar saklanmaz — sadece kart bilgileri görüntülenir. Şüpheli bir kayıt görürseniz kullanıcılar sekmesinden hesabı düzenleyebilirsiniz.
+    </p>
+    ${verified.map(u => `
+    <div class="user-row" style="align-items:flex-start;flex-direction:column;gap:6px;">
+      <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+        <span style="font-weight:700;font-size:0.85rem;">🪪 ${escHTML(u.studentCardInfo.studentName)}</span>
+        <span class="role-badge badge-student">Öğrenci</span>
+      </div>
+      <div style="font-size:0.78rem;color:var(--text2);width:100%;">
+        Kart No: <span style="font-family:monospace;color:var(--accent)">${escHTML(u.studentCardId)}</span><br>
+        Okul: ${escHTML(u.studentCardInfo.schoolName)}<br>
+        Doğrulama Tarihi: ${escHTML(u.studentCardInfo.verifiedAt)}<br>
+        Hesap: @${escHTML(u.username)} — IP: <span style="font-family:monospace">${u.ip || '—'}</span>
+      </div>
+    </div>`).join('')}
+  `;
+}
+
+function renderAdminLogs() {
+  const list = document.getElementById('adminLogList');
+  const logs = state.adminLogs || [];
+  if (!logs.length) { list.innerHTML = '<p style="color:var(--text3);font-size:0.85rem">Henüz log kaydı yok.</p>'; return; }
+  list.innerHTML = logs.map(l => {
+    if (l.type === 'profanity') {
+      return `
+      <div class="user-row" style="align-items:flex-start;flex-direction:column;gap:6px;">
+        <div style="display:flex;justify-content:space-between;width:100%;">
+          <span style="font-weight:700;color:var(--yellow);font-size:0.85rem">⚠️ Yasaklı Kelime Denemesi (${l.attempt}/3)</span>
+          <span style="font-size:0.72rem;color:var(--text3)">${l.time}</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text2)">
+          <strong>${escHTML(l.user)}</strong> (@${l.username}) — IP: <span style="font-family:monospace">${l.ip}</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--red);background:rgba(255,68,85,0.1);padding:6px 10px;border-radius:6px;width:100%;">
+          Yazmaya çalıştığı kelime(ler): <strong>${l.words.map(w=>escHTML(w)).join(', ')}</strong>
+        </div>
+      </div>`;
+    }
+    if (l.type === 'ban_auto') {
+      return `
+      <div class="user-row" style="align-items:flex-start;flex-direction:column;gap:6px;border-color:var(--red);">
+        <div style="display:flex;justify-content:space-between;width:100%;">
+          <span style="font-weight:700;color:var(--red);font-size:0.85rem">🚫 Otomatik Ban</span>
+          <span style="font-size:0.72rem;color:var(--text3)">${l.time}</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text2)">
+          <strong>${escHTML(l.user)}</strong> (@${l.username}) — IP: <span style="font-family:monospace">${l.ip}</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--text2)">
+          Sebep: ${escHTML(l.reason)} — Ban bitiş: ${l.banUntil}
+        </div>
+      </div>`;
+    }
+    if (l.type === 'card_verified') {
+      return `
+      <div class="user-row" style="align-items:flex-start;flex-direction:column;gap:6px;border-color:var(--accent);">
+        <div style="display:flex;justify-content:space-between;width:100%;">
+          <span style="font-weight:700;color:var(--accent);font-size:0.85rem">🪪 Öğrenci Kartı Doğrulandı</span>
+          <span style="font-size:0.72rem;color:var(--text3)">${l.time}</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text2)">
+          <strong>${escHTML(l.user)}</strong> (@${l.username}) — Kart No: <span style="font-family:monospace">${l.cardId}</span>
+        </div>
+      </div>`;
+    }
+    if (l.type === 'card_conflict') {
+      return `
+      <div class="user-row" style="align-items:flex-start;flex-direction:column;gap:6px;border-color:var(--yellow);">
+        <div style="display:flex;justify-content:space-between;width:100%;">
+          <span style="font-weight:700;color:var(--yellow);font-size:0.85rem">⚠️ Kart Çakışması — Eski Hesap Düşürüldü</span>
+          <span style="font-size:0.72rem;color:var(--text3)">${l.time}</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text2)">
+          Kart No: <span style="font-family:monospace">${l.cardId}</span><br>
+          Yeni sahip: <strong>${escHTML(l.user)}</strong> (@${l.username})<br>
+          Eski sahip (öğrenci yetkisi kaldırıldı): <strong>${escHTML(l.previousUser)}</strong> (@${l.previousUsername})
+        </div>
+      </div>`;
+    }
+    return '';
+  }).join('');
+}
+
+function renderAdminUsers() {
+  const list = document.getElementById('adminUserList');
+  const users = state.users.filter(u => u.username !== 'YiğitEfeEĞİN');
+  if (!users.length) { list.innerHTML = '<p style="color:var(--text3);font-size:0.85rem">Kayıtlı kullanıcı yok.</p>'; return; }
+  list.innerHTML = users.map(u => {
+    const banBadge = u.banned ? `<span class="banned-badge">BANLI</span>` : '';
+    return `
+    <div class="user-row">
+      <div class="avatar" style="width:30px;height:30px;font-size:0.8rem;">${u.displayName[0].toUpperCase()}</div>
+      <div class="ur-info">
+        <div class="ur-name">${escHTML(u.displayName)} ${banBadge}</div>
+        <div class="ur-ip">IP: ${u.ip || '—'} &nbsp;|&nbsp; @${u.username}</div>
+      </div>
+      <div class="ur-actions">
+        <select class="role-select-sm" onchange="changeRole('${u.username}',this.value)">
+          <option value="student" ${u.role==='student'?'selected':''}>Öğrenci</option>
+          <option value="teacher" ${u.role==='teacher'?'selected':''}>Öğretmen</option>
+          <option value="guest" ${u.role==='guest'?'selected':''}>Misafir</option>
+        </select>
+        <div class="ban-row">
+          <input class="ban-input" type="number" id="banVal-${u.username}" placeholder="süre" min="1" max="9999">
+          <select class="role-select-sm" id="banUnit-${u.username}">
+            <option value="minutes">dk</option>
+            <option value="hours" selected>saat</option>
+            <option value="days">gün</option>
+          </select>
+          <button class="btn-sm danger" onclick="banUser('${u.username}')">${u.banned?'Banı Kaldır':'Ban'}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAdminBanned() {
+  const list = document.getElementById('adminBanList');
+  const bips = state.bannedIPs;
+  if (!bips.length) { list.innerHTML = '<p style="color:var(--text3);font-size:0.85rem">Banlı IP yok.</p>'; return; }
+  list.innerHTML = bips.map(entry => {
+    const ip = typeof entry === 'string' ? entry : entry.ip;
+    const until = typeof entry === 'string' ? null : entry.until;
+    const untilText = until ? new Date(until).toLocaleString('tr-TR') : 'Süresiz';
+    return `
+    <div class="user-row">
+      <div class="ur-info">
+        <span style="font-family:monospace;font-size:0.85rem">${ip}</span>
+        <div style="font-size:0.72rem;color:var(--text3)">Ban bitiş: ${untilText}</div>
+      </div>
+      <button class="btn-sm danger" onclick="unbanIP('${ip}')">IP Banı Kaldır</button>
+    </div>`;
+  }).join('');
+}
+
+function changeRole(uname, role) {
+  const u = state.users.find(x => x.username === uname);
+  if (u) { u.role = role; saveState(); renderAdminUsers(); toast('Rol güncellendi.', 'success'); }
+}
+
+function banUser(uname) {
+  const u = state.users.find(x => x.username === uname);
+  if (!u) return;
+  if (u.banned) {
+    u.banned = false; u.banUntil = null;
+    state.bannedIPs = state.bannedIPs.filter(entry => (typeof entry === 'string' ? entry : entry.ip) !== u.ip);
+    saveState(); renderAdminUsers(); renderAdminBanned(); toast('Ban kaldırıldı.', 'success');
+  } else {
+    const val  = parseInt(document.getElementById('banVal-' + uname)?.value) || 0;
+    const unit = document.getElementById('banUnit-' + uname)?.value || 'hours';
+    let ms = 0;
+    if (val > 0) {
+      if (unit === 'minutes') ms = val * 60000;
+      else if (unit === 'hours') ms = val * 3600000;
+      else if (unit === 'days')  ms = val * 86400000;
+    }
+    u.banned = true;
+    u.banUntil = ms > 0 ? new Date(Date.now() + ms).toISOString() : null;
+    if (u.ip && u.ip !== '0.0.0.0') {
+      state.bannedIPs = state.bannedIPs.filter(entry => (typeof entry === 'string' ? entry : entry.ip) !== u.ip);
+      state.bannedIPs.push({ ip: u.ip, until: u.banUntil });
+    }
+    saveState(); renderAdminUsers(); renderAdminBanned();
+    const label = ms > 0 ? val + ' ' + {minutes:'dakika',hours:'saat',days:'gün'}[unit] : 'süresiz';
+    toast(`${u.displayName} ${label} banlandı.`, 'success');
+  }
+}
+function unbanIP(ip) {
+  state.bannedIPs = state.bannedIPs.filter(entry => (typeof entry === 'string' ? entry : entry.ip) !== ip);
+  // also unban users with this ip
+  state.users.forEach(u => { if (u.ip === ip) { u.banned = false; u.banUntil = null; }});
+  saveState(); renderAdminUsers(); renderAdminBanned(); toast('IP banı kaldırıldı.', 'success');
+}
+
+// ════════════════════════════════════════════
+// MODAL HELPERS
+// ════════════════════════════════════════════
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+document.querySelectorAll('.overlay').forEach(el => {
+  el.addEventListener('click', e => {
+    if (e.target === el) closeModal(el.id);
+  });
+});
+
+// ════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════
+let toastTimer;
+function toast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ''; }, 3000);
+}
+
+// ════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════
+function escHTML(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+(async function init() {
+  // Hafif yükleniyor göstergesi
+  document.getElementById('announcements').innerHTML =
+    '<div class="empty-state"><div class="es-icon">⏳</div><p>Forum verileri yükleniyor...</p></div>';
+
+  // Tema oturum bilgisinden önce localStorage'tan hızlıca uygula (flicker önlemek için)
+  try {
+    const cached = localStorage.getItem('mostemSession');
+    if (cached) {
+      const s = JSON.parse(cached);
+      if (s.theme) state.theme = s.theme;
+    }
+  } catch(e) {}
+  applyTheme(state.theme);
+
+  await loadState();
+
+  applyTheme(state.theme);
+  if (state.currentUser) {
+    // Re-validate user still exists
+    const u = state.users.find(x => x.username === state.currentUser.username);
+    if (!u && state.currentUser.username !== 'YiğitEfeEĞİN') state.currentUser = null;
+  }
+  checkBan();
+  renderUserArea();
+  renderPosts();
+})();
+
+// ════════════════════════════════════════════
+// ÖĞRENCİ KİMLİK DOĞRULAMA
+// ════════════════════════════════════════════
+let _svStream = null;
+
+function openStudentVerify() {
+  closeDropdown();
+  document.getElementById('svStartWrap').style.display = 'block';
+  document.getElementById('svCameraWrap').style.display = 'none';
+  document.getElementById('svPreviewWrap').style.display = 'none';
+  document.getElementById('svStatus').textContent = '';
+  openModal('studentVerifyModal');
+}
+
+function closeStudentVerify() {
+  svStopCamera();
+  closeModal('studentVerifyModal');
+}
+
+function svStartCamera() {
+  const status = document.getElementById('svStatus');
+  // HTTPS kontrolü
+  if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+    status.style.color = 'var(--red)';
+    status.innerHTML = '❌ Kamera yalnızca <strong>HTTPS</strong> üzerinden çalışır. Siteyi HTTPS ile açın.';
+    return;
+  }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    status.style.color = 'var(--red)';
+    status.textContent = '❌ Tarayıcınız kamera erişimini desteklemiyor.';
+    return;
+  }
+  status.style.color = 'var(--text2)';
+  status.textContent = 'Kamera erişimi isteniyor...';
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } })
+    .then(stream => {
+      _svStream = stream;
+      const video = document.getElementById('svVideo');
+      video.srcObject = stream;
+      document.getElementById('svStartWrap').style.display = 'none';
+      document.getElementById('svCameraWrap').style.display = 'block';
+      document.getElementById('svPreviewWrap').style.display = 'none';
+      status.textContent = 'Kimlik kartınızı kameraya gösterin ve fotoğraf çekin.';
+    })
+    .catch(err => {
+      status.style.color = 'var(--red)';
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        status.innerHTML = '❌ Kamera izni reddedildi.<br><small style="color:var(--text3)">Tarayıcı adres çubuğundaki 🔒 simgesine tıklayıp kamera iznini "İzin Ver" olarak ayarlayın, ardından sayfayı yenileyin.</small>';
+      } else if (err.name === 'NotFoundError') {
+        status.textContent = '❌ Kamera bulunamadı. Cihazınızda kamera var mı?';
+      } else {
+        status.textContent = '❌ Kamera hatası: ' + err.message;
+      }
+    });
+}
+
+function svStopCamera() {
+  if (_svStream) {
+    _svStream.getTracks().forEach(t => t.stop());
+    _svStream = null;
+  }
+  document.getElementById('svCameraWrap').style.display = 'none';
+  document.getElementById('svStartWrap').style.display = 'block';
+}
+
+function svCapture() {
+  const video = document.getElementById('svVideo');
+  const canvas = document.getElementById('svCanvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+  document.getElementById('svPreviewImg').src = dataUrl;
+  svStopCamera();
+  document.getElementById('svPreviewWrap').style.display = 'block';
+  document.getElementById('svStartWrap').style.display = 'none';
+  document.getElementById('svStatus').textContent = '';
+}
+
+function svRetake() {
+  document.getElementById('svPreviewWrap').style.display = 'none';
+  svStartCamera();
+}
+
+function svConfirm() {
+  const status = document.getElementById('svStatus');
+  status.style.color = 'var(--text2)';
+  status.textContent = '⏳ Öğrenci kartı bilgileri işleniyor...';
+
+  // Simule edilmiş kart okuma (gerçek OCR entegrasyonu daha sonra eklenecek)
+  setTimeout(() => {
+    const u = state.currentUser;
+    if (!u) { status.style.color='var(--red)'; status.textContent = '❌ Oturum bulunamadı.'; return; }
+    const found = state.users.find(x => x.username === u.username);
+    if (!found) { status.style.color='var(--red)'; status.textContent = '❌ Kullanıcı bulunamadı.'; return; }
+
+    // ── Simüle edilmiş kart kimliği (gerçek OCR'da karttan okunan benzersiz numara olacak) ──
+    // Şimdilik demo amaçlı: kullanıcı adına bağlı sabit bir hash üretiyoruz.
+    const cardId = 'CARD-' + (found.username.length * 7919 + found.displayName.length * 31).toString(36).toUpperCase();
+
+    // ── Aynı kart başka bir hesapta daha önce kullanılmış mı kontrolü ──
+    const previousOwner = state.users.find(x => x.studentCardId === cardId && x.username !== found.username);
+
+    // ÖNEMLİ: Fotoğraf hiçbir şekilde saklanmaz, yalnızca kart bilgileri tutulur.
+    const cardInfo = {
+      cardId: cardId,
+      schoolName: 'Tespit Edilen Okul (OCR sonrası dolacak)',
+      studentName: found.displayName,
+      verifiedAt: new Date().toLocaleString('tr-TR')
+    };
+
+    if (previousOwner) {
+      // Bu kart daha önce başka bir hesaba okutulmuş —
+      // SONRADAN okutan hesap (şu anki kullanıcı) öğrenci olur,
+      // ÖNCEDEN okutmuş olan hesap düşürülür (guest'e geri alınır) ve eğer şu an oturum açıksa zorla çıkış yaptırılır.
+      previousOwner.role = 'guest';
+      previousOwner.studentCardId = null;
+      previousOwner.studentCardInfo = null;
+      previousOwner.idVerified = false;
+      previousOwner.cardRevokedReason = `Öğrenci kartınız (${cardId}) başka bir hesapta (${found.displayName}) tekrar doğrulandığı için öğrenci yetkiniz kaldırıldı.`;
+
+      addAdminLog({
+        type: 'card_conflict',
+        user: found.displayName,
+        username: found.username,
+        previousUser: previousOwner.displayName,
+        previousUsername: previousOwner.username,
+        cardId: cardId,
+        time: new Date().toLocaleString('tr-TR')
+      });
+
+      // Eğer önceki sahip şu an aktif oturumdaysa (aynı tarayıcıda mümkün değil ama veri tutarlılığı için kontrol ediyoruz)
+      if (state.currentUser && state.currentUser.username === previousOwner.username) {
+        state.currentUser = null;
+      }
+    }
+
+    found.role = 'student';
+    found.idVerified = true;
+    found.studentCardId = cardId;
+    found.studentCardInfo = cardInfo; // sadece bilgiler — fotoğraf YOK
+    state.currentUser = { ...found };
+
+    addAdminLog({
+      type: 'card_verified',
+      user: found.displayName,
+      username: found.username,
+      cardId: cardId,
+      time: new Date().toLocaleString('tr-TR')
+    });
+
+    saveState();
+    renderUserArea();
+    renderPosts();
+
+    status.style.color = 'var(--green)';
+    status.innerHTML = '✅ Öğrenci kartı doğrulandı! Hesabınız Öğrenci olarak güncellendi.<br><span style="color:var(--text3);font-size:0.72rem">📷 Fotoğraf sistemden silindi, yalnızca kart bilgileri saklandı.</span>';
+    toast('Öğrenci kartı doğrulandı!', 'success');
+
+    // Fotoğraf önizlemesini DOM'dan da temizle (gizlilik)
+    const previewImg = document.getElementById('svPreviewImg');
+    if (previewImg) previewImg.src = '';
+
+    setTimeout(() => closeModal('studentVerifyModal'), 2400);
+  }, 2200);
+}
+
+
+// ════════════════════════════════════════════
+// PROFANITY FILTER — SADECE YORUMLAR
+// ════════════════════════════════════════════
+const BANNED_WORDS = ["2 girls 1 cup", "2g1c", "a.q", "a.q.", "abaza", "abazan", "acrotomophilia", "ag", "ahmak", "alabama hot pocket", "alaskan pipeline", "allah", "allahs\u0131z", "am", "am biti", "amar\u0131m", "ambiti", "amcik", "amck", "amckl", "amcklama", "amcklaryla", "amckta", "amcktan", "amcuk", "amc\u0131k", "amc\u0131k ho\u015faf\u0131", "amc\u0131klama", "amc\u0131kland\u0131", "amc\u0131klar", "amc\u0131klara", "amc\u0131klarda", "amc\u0131klardan", "amc\u0131klar\u0131", "amc\u0131klar\u0131n", "amc\u0131kta", "amc\u0131ktan", "amc\u0131\u011fa", "amc\u0131\u011f\u0131", "amc\u0131\u011f\u0131n", "amc\u0131\u011f\u0131n\u0131", "amc\u0131\u011f\u0131n\u0131z\u0131", "amin oglu", "amina", "amina g", "amina k", "amina koyarim", "amina koyayim", "amina koyay\u0131m", "aminako", "aminakoyarim", "aminakoyim", "aminda", "amindan", "amindayken", "amini", "aminiyarraaniskiim", "aminoglu", "amiyum", "amk", "amk \u00e7ocu\u011fu", "amkafa", "amlar", "amlarnzn", "aml\u0131", "amm", "ammak", "ammna", "amn", "amna", "amnda", "amndaki", "amngtn", "amnn", "amona", "amq", "amsiz", "amsz", "ams\u0131z", "amteri", "amugaa", "amuna", "amu\u011fa", "am\u0131", "am\u0131k", "am\u0131n feryad\u0131", "am\u0131n oglu", "am\u0131n o\u011flu", "am\u0131na", "am\u0131na koy", "am\u0131na koyar\u0131m", "am\u0131na koyay\u0131m", "am\u0131na koyyim", "am\u0131na s", "am\u0131na sikem", "am\u0131na sokam", "am\u0131nako", "am\u0131nakoyim", "am\u0131no\u011flu", "am\u0131n\u0131", "am\u0131n\u0131 s", "am\u0131s\u0131na", "am\u0131s\u0131n\u0131", "ana", "anaaann", "anal", "analarn", "anam", "anamla", "anan", "anana", "anandan", "anani", "anani sikerim", "anani sikeyim", "ananin", "ananisikerim", "ananisikeyim", "anann", "ananz", "anan\u0131", "anan\u0131 sikerim", "anan\u0131 sikeyim", "anan\u0131n", "anan\u0131n am", "anan\u0131n am\u0131", "anan\u0131n d\u00f6l\u00fc", "anan\u0131nki", "anan\u0131sikerim", "anan\u0131sikeyim", "anan\u0131z\u0131n", "anan\u0131z\u0131n am", "anas", "anasi", "anasinin", "anas\u0131 orospu", "anas\u0131n\u0131", "anas\u0131n\u0131n am", "anay", "anayin", "angut", "anilingus", "anneni", "annenin", "annesiz", "anuna", "anus", "apeshit", "aptal", "aq", "aq.", "arsehole", "ass", "asshole", "assmunch", "atkafas\u0131", "atm\u0131k", "attrrm", "att\u0131rd\u0131\u011f\u0131m", "auto erotic", "autoerotic", "auzlu", "avrat", "ayklarmalrmsikerim", "azd\u0131m", "azd\u0131r", "azd\u0131r\u0131c\u0131", "a\u011fz\u0131na s\u0131\u00e7ay\u0131m", "babaannesi ka\u015far", "babani", "baban\u0131", "baban\u0131n", "babas\u0131 pezevenk", "babeland", "baby batter", "baby juice", "baca\u011f\u0131na s\u0131\u00e7ay\u0131m", "bacini", "bacn", "bacndan", "bacy", "bac\u0131na", "bac\u0131n\u0131", "bac\u0131n\u0131n", "ball gag", "ball gravy", "ball kicking", "ball licking", "ball sack", "ball sucking", "bangbros", "bareback", "barely legal", "barenaked", "bastard", "bastardo", "bastinado", "basur", "bbw", "bdsm", "beaner", "beaners", "beaver cleaver", "beaver lips", "bestiality", "beyinsiz", "big black", "big breasts", "big knockers", "big tits", "bimbos", "birdlock", "bitch", "bitches", "biting", "black cock", "blonde action", "blonde on blonde action", "blow job", "blow your load", "blowjob", "blue waffle", "blumpkin", "bok", "boka", "bokbok", "bokhu", "bokkkumu", "boklar", "boktan", "boku", "bokubokuna", "bokum", "bok\u00e7a", "bollocks", "bombok", "bondage", "boner", "boob", "boobs", "booty call", "bosalmak", "bo\u015falmak", "brown showers", "brunette action", "bukkake", "bulldyke", "bullet vibe", "bullshit", "bung hole", "bunghole", "busty", "butt", "buttcheeks", "butthole", "b\u0131z\u0131r", "camel toe", "camgirl", "camslut", "camwhore", "carpet muncher", "carpetmuncher", "cenabet", "chocolate rosebuds", "cibiliyetsiz", "cibilliyetini", "cibilliyetsiz", "cif", "cikar", "cim", "circlejerk", "cleveland steamer", "clit", "clitoris", "clover clamps", "clusterfuck", "cock", "cocks", "coon", "coons", "coprolagnia", "coprophilia", "cornhole", "creampie", "cum", "cumming", "cunnilingus", "cunt", "dalaks\u0131z", "dallama", "daltassak", "dalyarak", "dalyarrak", "dangalak", "darkie", "dassagi", "date rape", "daterape", "deep throat", "deepthroat", "dendrophilia", "dick", "diktim", "dildo", "dingil", "dingilini", "dingleberries", "dingleberry", "dinsiz", "dirty pillows", "dirty sanchez", "dkerim", "dog style", "doggie style", "doggiestyle", "doggy style", "doggystyle", "dolcett", "domal", "domalan", "domald\u0131", "domald\u0131n", "domalmak", "domalm\u0131\u015f", "domals\u0131n", "domalt", "domaltarak", "domaltip", "domaltmak", "domalt\u0131p", "domalt\u0131r", "domalt\u0131r\u0131m", "domal\u0131k", "domal\u0131yor", "domination", "dominatrix", "dommes", "donkey punch", "double dong", "double penetration", "dp action", "dry hump", "dvda", "d\u00f6l\u00fc", "d\u00f6nek", "d\u00fcd\u00fck", "eat my ass", "eben", "ebeni", "ebenin", "ebeninki", "ebleh", "ecchi", "ecdadini", "ecdad\u0131n\u0131", "ejaculation", "embesil", "emi", "erotic", "erotism", "escort", "eunuch", "faggot", "fahise", "fahi\u015fe", "fecal", "felch", "fellatio", "feltch", "female squirting", "femdom", "feri\u015ftah", "ferre", "figging", "fingerbang", "fingering", "fisting", "foot fetish", "footjob", "frotting", "fuck", "fuck buttons", "fucker", "fuckin", "fucking", "fucktards", "fudge packer", "fudgepacker", "futanari", "g-spot", "gang bang", "gavad", "gavat", "gay sex", "geber", "geberik", "gebermek", "gebermi\u015f", "gebertir", "genitals", "gerizekali", "gerizekal\u0131", "gerzek", "ger\u0131zekal\u0131", "giant cock", "giberim", "giberler", "gibis", "gibi\u015f", "gibmek", "gibtiler", "girl on", "girl on top", "girls gone wild", "goatcx", "goatse", "god damn", "goddamn", "godo\u015f", "godumun", "gokkun", "golden shower", "goo girl", "goodpoop", "goregasm", "gotelek", "gotlalesi", "gotlu", "gotten", "gotundeki", "gotunden", "gotune", "gotunu", "gotveren", "goyiim", "goyum", "goyuyim", "goyyim", "grope", "group sex", "gtelek", "gtn", "gtnde", "gtnden", "gtne", "gtten", "gtveren", "guro", "g\u00f6t", "g\u00f6t deli\u011fi", "g\u00f6t herif", "g\u00f6t o\u011flan\u0131", "g\u00f6t veren", "g\u00f6t verir", "g\u00f6te", "g\u00f6telek", "g\u00f6tlalesi", "g\u00f6tlek", "g\u00f6tler", "g\u00f6tlerde", "g\u00f6tlerden", "g\u00f6tlere", "g\u00f6tleri", "g\u00f6tlerin", "g\u00f6to\u011flan\u0131", "g\u00f6to\u015f", "g\u00f6tte", "g\u00f6tten", "g\u00f6tveren", "g\u00f6tverende", "g\u00f6tverenden", "g\u00f6tverene", "g\u00f6tvereni", "g\u00f6tverenin", "g\u00f6tverenler", "g\u00f6tverenlerde", "g\u00f6tverenlerden", "g\u00f6tverenlere", "g\u00f6tverenleri", "g\u00f6tverenlerin", "g\u00f6t\u00fc", "g\u00f6t\u00fcn", "g\u00f6t\u00fcne", "g\u00f6t\u00fcne koyim", "g\u00f6t\u00fcnekoyim", "g\u00f6t\u00fcn\u00fc", "hand job", "handjob", "hard core", "hardcore", "has siktir", "hasiktir", "hassikome", "hassiktir", "hassittir", "haysiyetsiz", "hayvan herif", "hentai", "homoerotic", "honkey", "hooker", "hot carl", "hot chick", "how to kill", "how to murder", "ho\u015faf\u0131", "hsktr", "huge fat", "humping", "huur", "h\u00f6d\u00fck", "ibina", "ibine", "ibinenin", "ibne", "ibnedir", "ibneleri", "ibnelik", "ibnelri", "ibneni", "ibnenin", "ibnerator", "ibnesi", "idiot", "idiyot", "imansz", "incest", "intercourse", "ipne", "iserim", "ito\u011flu it", "i\u015ferim", "jack off", "jail bait", "jailbait", "jelly donut", "jerk off", "jigaboo", "jiggaboo", "jiggerboo", "jizz", "juggs", "kafam girsin", "kafasiz", "kafas\u0131z", "kahpe", "kahpenin", "kahpenin feryad\u0131", "kaka", "kaltak", "kaltaklar", "kaltaklara", "kaltaklarda", "kaltaklardan", "kaltaklar\u0131", "kaltaklar\u0131n", "kaltakta", "kaltaktan", "kalta\u011fa", "kalta\u011f\u0131", "kalta\u011f\u0131n", "kancik", "kanc\u0131k", "kappe", "karhane", "kavat", "kavatn", "kaypak", "kayyum", "ka\u015far", "kerane", "kerhane", "kerhanelerde", "kevase", "keva\u015fe", "kevvase", "kike", "kinbaku", "kinkster", "kinky", "knobbing", "koca g\u00f6t", "kodumun", "kodumunun", "koduumun", "kodu\u011fmun", "kodu\u011fmunun", "koyarm", "koyay\u0131m", "koyiim", "koyiiym", "koyim", "koyum", "koyyim", "krar", "kukudaym", "laciye boyad\u0131m", "lavuk", "leather restraint", "leather straight jacket", "lemon party", "libo\u015f", "lolita", "lovemaking", "madafaka", "make me come", "mal", "malafat", "malak", "male squirting", "manyak", "masturbate", "mcik", "meme", "memelerini", "menage a trois", "mezveleli", "milf", "minaamc\u0131k", "mincikliyim", "missionary position", "mna", "monakkoluyum", "motherfucker", "mound of venus", "mr hands", "mudik", "muff diver", "muffdiving", "nambla", "nawashi", "negro", "neonazi", "nig nog", "nigga", "nigger", "nimphomania", "nipple", "nipples", "nsfw images", "nude", "nudity", "nympho", "nymphomania", "o. \u00e7ocu\u011fu", "oc", "octopussy", "ocuu", "ocuun", "omorashi", "one cup two girls", "one guy one jar", "orgasm", "orgy", "orosbucocuu", "orospu", "orospu cocugu", "orospu \u00e7oc", "orospu \u00e7ocuklar\u0131", "orospu \u00e7ocu\u011fu", "orospu \u00e7ocu\u011fudur", "orospucocugu", "orospuda", "orospudan", "orospudur", "orospular", "orospulara", "orospularda", "orospulardan", "orospular\u0131", "orospular\u0131n", "orospunun", "orospunun evlad\u0131", "orospuya", "orospuydu", "orospuyu", "orospuyuz", "orospu\u00e7ocu\u011fu", "orostoban", "orostopol", "orrospu", "oruspu", "oruspu \u00e7ocu\u011fu", "oruspu\u00e7ocu\u011fu", "osbir", "ossurduum", "ossurmak", "ossuruk", "osur", "osurduu", "osuruk", "osururum", "otuz birci", "otuz bircide", "otuz birciden", "otuz birciler", "otuz bircilerde", "otuz bircilerden", "otuz bircilere", "otuz bircileri", "otuz bircilerin", "otuz bircinin", "otuz birciye", "otuz birciyi", "otuzbir", "o\u00e7", "o\u011flan", "o\u011flanc\u0131", "o\u011flu it", "paedophile", "paki", "panties", "panty", "patlak zar", "pedobear", "pedophile", "pegging", "penis", "pezevek", "pezeven", "pezeveng", "pezevengi", "pezevengin evlad\u0131", "pezevenk", "pezo", "phone sex", "pic", "pici", "picler", "piece of shit", "pipi", "pipi\u015f", "pisliktir", "piss pig", "pissing", "pisspig", "pi\u00e7", "pi\u00e7 kurusu", "pi\u00e7in o\u011flu", "pi\u00e7ler", "playboy", "pleasure chest", "pole smoker", "ponyplay", "poof", "poon", "poontang", "poop chute", "poopchute", "porn", "porno", "pornography", "prince albert piercing", "pthc", "pubes", "punany", "pussy", "pu\u015ft", "pu\u015fttur", "queaf", "queef", "quim", "raghead", "raging boner", "rahminde", "rape", "raping", "rapist", "rectum", "reverse cowgirl", "revizyonist", "rimjob", "rimming", "rosy palm", "rosy palm and her 5 sisters", "rusty trombone", "s&m", "s1kerim", "s1kerm", "s1krm", "sadism", "sakso", "saksocu", "saksocuda", "saksocudan", "saksocular", "saksoculara", "saksocularda", "saksoculardan", "saksocular\u0131", "saksocular\u0131n", "saksocunun", "saksocuya", "saksocuyu", "saksofon", "salaak", "salak", "santorum", "saxo", "scat", "schlong", "scissoring", "sekis", "semen", "serefsiz", "sevgi koyar\u0131m", "sevi\u015felim", "sex", "sexo", "sexs", "sexy", "shaved beaver", "shaved pussy", "shemale", "shibari", "shit", "shitblimp", "shitty", "shota", "shrimping", "sicarsin", "sie", "sik", "sikdi", "sikdi\u011fim", "sike", "sikecem", "sikem", "siken", "sikenin", "siker", "siker sikmez", "sikerim", "sikerler", "sikersin", "sikertir", "sikertmek", "sikesen", "sikesicenin", "sikey", "sikeydim", "sikeyim", "sikeym", "siki", "sikicem", "sikici", "sikien", "sikienler", "sikiiim", "sikiiimmm", "sikiim", "sikiir", "sikiirken", "sikik", "sikil", "sikildiini", "sikilesice", "sikilir sikilmez", "sikilmi", "sikilmie", "sikilmis", "sikilmi\u015f", "sikilsin", "sikim", "sikimde", "sikimden", "sikime", "sikimi", "sikimiin", "sikimin", "sikimle", "sikimsonik", "sikimtrak", "sikin", "sikinde", "sikinden", "sikine", "sikini", "sikip", "sikis", "sikisek", "sikisen", "sikish", "sikismis", "sikitiin", "sikiyim", "sikiym", "sikiyorum", "siki\u015f", "siki\u015fen", "siki\u015fme", "sikkim", "sikko", "sikler", "siklerde", "siklerden", "siklere", "sikleri", "sikleriii", "siklerin", "sikli", "sikm", "sikmek", "sikmem", "sikmemek", "sikmiler", "sikmisligim", "siksem", "sikseydin", "sikseyidin", "siksin", "siksinbaya", "siksinler", "siksiz", "siksok", "siksz", "sikt", "sikte", "sikten", "sikti", "siktigimin", "siktigiminin", "siktii", "siktiim", "siktiimin", "siktiiminin", "siktiler", "siktim", "siktimin", "siktiminin", "siktir", "siktir et", "siktir git", "siktir lan", "siktir ol git", "siktirgit", "siktirir", "siktirir siktirmez", "siktiririm", "siktiriyor", "siktirolgit", "sikti\u011fim", "sikti\u011fimin", "sikti\u011fiminin", "sittimin", "sittir", "skcem", "skecem", "skeet", "skem", "sker", "skerim", "skerm", "skeyim", "skiim", "skik", "skim", "skime", "skmek", "sksin", "sksn", "sksz", "sktiimin", "sktrr", "skyim", "slaleni", "slanteye", "slut", "smut", "snatch", "snowballing", "sodomize", "sodomy", "sokam", "sokarim", "sokarm", "sokarmkoduumun", "sokar\u0131m", "sokaym", "sokay\u0131m", "sokiim", "soktu\u011fumunun", "sokuk", "sokum", "sokuyum", "soku\u015f", "soxum", "spic", "splooge", "splooge moose", "spooge", "spread legs", "spunk", "strap on", "strapon", "strappado", "strip club", "style doggy", "suck", "sucks", "suicide girls", "sulaleni", "sultry women", "swastika", "swinger", "s\u00fclaleni", "s\u00fclalenizi", "s\u00fcrt\u00fck", "s\u0131ecem", "s\u0131\u00e7ar\u0131m", "s\u0131\u00e7mak", "s\u0131\u00e7t\u0131\u011f\u0131m", "taaklarn", "taaklarna", "tainted love", "tarrakimin", "tasak", "tassak", "taste my", "ta\u015fak", "ta\u015faklar", "ta\u015faklara", "ta\u015faklarda", "ta\u015faklardan", "ta\u015faklar\u0131", "ta\u015faklar\u0131n", "ta\u015fakta", "ta\u015faktan", "ta\u015fa\u011fa", "ta\u015fa\u011f\u0131", "ta\u015fa\u011f\u0131n", "ta\u015f\u015fak", "tea bagging", "threesome", "throating", "tied up", "tight white", "tipini s.k", "tipinizi s.keyim", "tit", "tits", "titties", "titty", "tiyniyat", "tongue in a", "toplarm", "topless", "topsun", "tosser", "toto\u015f", "towelhead", "tranny", "tribadism", "tub girl", "tubgirl", "tushy", "twat", "twink", "twinkie", "two girls one cup", "undressing", "upskirt", "urethra play", "urophilia", "vagina", "vajina", "vajinan\u0131", "veled", "veled i zina", "veledizina", "venus mound", "verdiimin", "vibrator", "violet wand", "vorarephilia", "voyeur", "vulva", "wank", "weled", "weledizina", "wet dream", "wetback", "white power", "whore", "wrapping men", "wrinkled starfish", "xikeyim", "xx", "xxx", "yaaraaa", "yalama", "yalarun", "yalar\u0131m", "yaoi", "yaraaam", "yarak", "yaraklar", "yaraklara", "yaraklarda", "yaraklardan", "yaraklar\u0131", "yaraklar\u0131n", "yaraks\u0131z", "yarakta", "yaraktan", "yaraktr", "yaram", "yaraminbasi", "yaramn", "yararmorospunun", "yara\u011fa", "yara\u011f\u0131", "yara\u011f\u0131n", "yarra", "yarraaaa", "yarraak", "yarraam", "yarraam\u0131", "yarragi", "yarragimi", "yarragina", "yarragindan", "yarragm", "yarraimin", "yarrak", "yarram", "yarramin", "yarraminba\u015f\u0131", "yarramn", "yarran", "yarrana", "yarra\u011f", "yarra\u011f\u0131m", "yarra\u011f\u0131m\u0131", "yarrrak", "yavak", "yavu\u015fak", "yav\u015f", "yav\u015fak", "yav\u015fakt\u0131r", "yellow showers", "yiffy", "yilisik", "yogurtlayam", "yo\u011furtlayam", "yrrak", "y\u0131l\u0131\u015f\u0131k", "zibidi", "zigsin", "zikeyim", "zikiiim", "zikiim", "zikik", "zikim", "ziksiiin", "ziksiin", "zoophilia", "zulliyetini", "zviyetini", "z\u0131kk\u0131m\u0131m", "\u00e7ingene", "\u00e7ingenede", "\u00e7ingeneden", "\u00e7ingeneler", "\u00e7ingenelerde", "\u00e7ingenelerden", "\u00e7ingenelere", "\u00e7ingeneleri", "\u00e7ingenelerin", "\u00e7ingenenin", "\u00e7ingeneye", "\u00e7ingeneyi", "\u00e7\u00fck", "\u00f6k\u00fcz", "\u00f6\u015fex", "\u0131bnel\u0131k", "\u015ferefsiz", "\u015f\u0131ll\u0131k", "\ud83d\udd95"];
+
+function normalize(s) {
+  return s.toLowerCase()
+    .replace(/[ıİ]/g,'i').replace(/[ğĞ]/g,'g')
+    .replace(/[üÜ]/g,'u').replace(/[şŞ]/g,'s')
+    .replace(/[öÖ]/g,'o').replace(/[çÇ]/g,'c')
+    .replace(/0/g,'o').replace(/3/g,'e').replace(/1/g,'i').replace(/4/g,'a')
+    .replace(/[^a-z0-9 ]/g,' ');
+}
+
+function findBadWords(text) {
+  const norm = normalize(text);
+  const found = [];
+  for (const w of BANNED_WORDS) {
+    const nw = normalize(w);
+    if (!nw || nw.length < 2) continue;
+    if (norm.includes(nw)) found.push(w);
+  }
+  return found;
+}
+
+function containsProfanity(text) {
+  return findBadWords(text).length > 0;
+}
+
+let _countdownInterval = null;
+
+function showProfanityWarning(pid, u, badWords) {
+  const found = state.users.find(x => x.username === u.username);
+  if (!found) return;
+  if (!found._violations) found._violations = 0;
+  found._violations++;
+  const vCount = found._violations;
+
+  // Admin log kaydı
+  addAdminLog({
+    type: 'profanity',
+    user: u.displayName,
+    username: u.username,
+    ip: u.ip || MY_IP,
+    words: badWords,
+    attempt: vCount,
+    time: new Date().toLocaleString('tr-TR')
+  });
+
+  saveState();
+
+  const modal = document.getElementById('profanityModal');
+  const msgEl = document.getElementById('profanityMsg');
+  const countEl = document.getElementById('profanityWarnCount');
+  const display = document.getElementById('countdownDisplay');
+  const fill = document.getElementById('countdownFill');
+  const bar = document.getElementById('countdownBar');
+
+  const remaining = 3 - vCount;
+
+  if (vCount >= 3) {
+    // 3. ihlal — ban
+    msgEl.innerHTML = `<strong style="color:var(--red)">3. ihlal!</strong> Hesabınız <strong>3 saat</strong> askıya alınıyor.`;
+    countEl.style.display = 'none';
+    display.style.display = 'block';
+    bar.style.display = 'block';
+    let count = 5;
+    display.textContent = count;
+    fill.style.width = '100%';
+    clearInterval(_countdownInterval);
+    _countdownInterval = setInterval(() => {
+      count--;
+      display.textContent = count;
+      fill.style.width = (count / 5 * 100) + '%';
+      if (count <= 0) {
+        clearInterval(_countdownInterval);
+        closeModal('profanityModal');
+        found.banned = true;
+        found._violations = 0;
+        found.banUntil = new Date(Date.now() + 3 * 3600000).toISOString();
+        if (found.ip && found.ip !== '0.0.0.0') {
+          state.bannedIPs = state.bannedIPs.filter(entry => (typeof entry === 'string' ? entry : entry.ip) !== found.ip);
+          state.bannedIPs.push({ ip: found.ip, until: found.banUntil });
+        }
+        addAdminLog({
+          type: 'ban_auto',
+          user: u.displayName,
+          username: u.username,
+          ip: found.ip || MY_IP,
+          reason: '3 kez yasaklı kelime ihlali',
+          banUntil: new Date(found.banUntil).toLocaleString('tr-TR'),
+          time: new Date().toLocaleString('tr-TR')
+        });
+        state.currentUser = null;
+        saveState();
+        renderUserArea();
+        renderPosts();
+        document.getElementById('banScreen').classList.add('show');
+        document.getElementById('banMsg').textContent =
+          'Uygunsuz içerik nedeniyle hesabınız 3 saat askıya alınmıştır. IP: ' + (found.ip || MY_IP) +
+          ' | Ban bitiş: ' + new Date(found.banUntil).toLocaleString('tr-TR');
+      }
+    }, 1000);
+  } else {
+    // 1. veya 2. uyarı
+    msgEl.innerHTML = `Yorumunuzda yasaklı ifade tespit edildi. Bu yorum <strong style="color:var(--red)">paylaşılamaz.</strong>`;
+    countEl.style.display = 'block';
+    countEl.innerHTML = `⚠️ Uyarı <strong>${vCount}/3</strong> — ${remaining} hakkınız kaldı.`;
+    display.style.display = 'none';
+    bar.style.display = 'none';
+    clearInterval(_countdownInterval);
+  }
+
+  openModal('profanityModal');
+}
+
+function addAdminLog(entry) {
+  if (!state.adminLogs) state.adminLogs = [];
+  state.adminLogs.unshift(entry);
+  if (state.adminLogs.length > 200) state.adminLogs = state.adminLogs.slice(0, 200);
+}
+
+</script>
+<!-- ═══════════ ÖĞRENCİ KARTI DOĞRULAMA MODAL ═══════════ -->
+<div class="overlay" id="studentVerifyModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-title">
+      <span>🪪 Öğrenci Kartı Doğrulama</span>
+      <button class="modal-close" onclick="closeStudentVerify()">✕</button>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px;line-height:1.6;">
+      Okulunuzun verdiği <strong>öğrenci kartını</strong> kameraya gösterin. Sistem bilgilerinizi okuyarak hesabınızı <strong>Öğrenci</strong> olarak güncelleyecek.
+    </p>
+    <!-- Camera area -->
+    <div id="svCameraWrap" style="display:none;">
+      <video id="svVideo" autoplay playsinline style="width:100%;border-radius:10px;background:#000;margin-bottom:10px;max-height:240px;object-fit:cover;"></video>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-primary" style="flex:1" onclick="svCapture()">📸 Fotoğraf Çek</button>
+        <button class="btn-login" onclick="svStopCamera()">İptal</button>
+      </div>
+    </div>
+    <!-- Canvas (hidden) -->
+    <canvas id="svCanvas" style="display:none;"></canvas>
+    <!-- Captured preview -->
+    <div id="svPreviewWrap" style="display:none;">
+      <img id="svPreviewImg" style="width:100%;border-radius:10px;margin-bottom:10px;" alt="Öğrenci kartı önizleme">
+      <p style="font-size:0.8rem;color:var(--text2);margin-bottom:10px;">Fotoğraf net görünüyor mu? Öğrenci kartı bilgilerinin okunabilir olduğundan emin olun.</p>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-primary" style="flex:1" onclick="svConfirm()">✅ Doğrulamayı Tamamla</button>
+        <button class="btn-login" onclick="svRetake()">🔄 Tekrar Çek</button>
+      </div>
+    </div>
+    <!-- Start button -->
+    <div id="svStartWrap">
+      <button class="btn-primary" style="width:100%" onclick="svStartCamera()">📷 Kamerayı Aç</button>
+    </div>
+    <div id="svStatus" style="margin-top:12px;font-size:0.82rem;text-align:center;"></div>
+    <p style="font-size:0.72rem;color:var(--text3);margin-top:14px;line-height:1.5;">
+      ⚠️ Bu doğrulama şu an geliştirme aşamasındadır. Fotoğraf çektikten sonra kart üzerindeki bilgiler işlenecek, <strong>fotoğrafın kendisi sistemden silinecek</strong> — yalnızca öğrenci kartı bilgileri (ad, okul, kart no vb.) güvenli şekilde saklanacaktır. Kurucu, admin panelindeki <strong>"Öğrenci Kartı Kontrol"</strong> bölümünden tüm öğrenci kartlarını teyit amaçlı inceleyebilir.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ PROFANITY WARNING MODAL ═══════════ -->
+<div class="overlay" id="profanityModal">
+  <div class="modal" style="max-width:380px;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:12px;">🚫</div>
+    <div class="modal-title" style="justify-content:center;flex-direction:column;gap:6px;">
+      <span style="color:var(--red);font-size:1.1rem;">Uygunsuz İçerik Tespit Edildi</span>
+    </div>
+    <p id="profanityMsg" style="font-size:0.88rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+      Yorumunuzda yasaklı ifade tespit edildi.
+    </p>
+    <div id="profanityWarnCount" style="background:var(--bg3);border:1px solid var(--red);border-radius:8px;padding:8px 14px;margin-bottom:14px;font-size:0.85rem;color:var(--red);font-weight:600;display:none;"></div>
+    <div id="countdownDisplay" style="font-size:2rem;font-weight:900;font-family:'Orbitron',monospace;color:var(--red);margin-bottom:16px;display:none;">10</div>
+    <div id="countdownBar" style="height:6px;background:var(--bg3);border-radius:3px;margin-bottom:18px;display:none;">
+      <div id="countdownFill" style="height:100%;width:100%;background:var(--red);border-radius:3px;transition:width 1s linear;"></div>
+    </div>
+    <button class="btn-primary" style="background:var(--red);width:100%" onclick="closeModal('profanityModal')">Tamam, Anlıyorum</button>
+  </div>
+</div>
+
+</body>
+</html>
