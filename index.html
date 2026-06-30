@@ -855,16 +855,17 @@ onAuthStateChanged(auth, (firebaseUser) => {
 </script>
 
 <!-- JSONBin.io tabanlı paylaşımlı veri katmanı -->
+<!-- Not: Sınırlı yetkili Access Key kullanılıyor (sadece okuma+güncelleme; silme/oluşturma izni YOK) -->
 <script>
 const JSONBIN_BIN_ID = '6a437f5fda38895dfe14b08c';
-const JSONBIN_MASTER_KEY = '$2a$10$Bua7ZIEHqYutdN6b5VewGu7Pn9MLKnpMDoFAIQJUtfiUZbBtqr3Sa';
+const JSONBIN_ACCESS_KEY = '$2a$10$oku46vFEQ9RU5ldM83bEve88jBB2bcy5Nfk9RKuX/nzIRzGjuNkBO';
 const JSONBIN_BASE = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
 
 async function jsonbinRead() {
   const res = await fetch(JSONBIN_BASE + '/latest', {
     method: 'GET',
     headers: {
-      'X-Master-Key': JSONBIN_MASTER_KEY,
+      'X-Access-Key': JSONBIN_ACCESS_KEY,
       'X-Bin-Meta': 'false'
     }
   });
@@ -877,7 +878,7 @@ async function jsonbinWrite(data) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'X-Master-Key': JSONBIN_MASTER_KEY,
+      'X-Access-Key': JSONBIN_ACCESS_KEY,
       'X-Bin-Versioning': 'false'
     },
     body: JSON.stringify(data)
