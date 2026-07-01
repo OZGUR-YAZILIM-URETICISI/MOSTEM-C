@@ -683,11 +683,12 @@ header {
       <textarea class="form-textarea" id="postDetail" placeholder="Duyuru içeriği..."></textarea>
     </div>
     <div class="form-row">
-      <label class="form-label">Görsel (isteğe bağlı)</label>
+      <label class="form-label">Görsel (isteğe bağlı — maks. 5MB)</label>
       <input class="form-input" type="file" id="postImg" accept="image/*" onchange="previewImg(this)">
       <img id="postImgPreview" class="img-preview" alt="Önizleme">
+      <div id="imgUploadStatus" style="font-size:0.78rem;margin-top:6px;min-height:18px;"></div>
     </div>
-    <button class="btn-primary" onclick="publishPost()">📤 Yayınla</button>
+    <button id="publishBtn" class="btn-primary" onclick="publishPost()">📤 Yayınla</button>
   </div>
 
   <!-- ANNOUNCEMENTS -->
@@ -1340,25 +1341,83 @@ document.addEventListener('click', e => {
 // ════════════════════════════════════════════
 // POSTS
 // ════════════════════════════════════════════
+// ════════════════════════════════════════════
+// CLOUDINARY — RESİM YÜKLEMESİ
+// ════════════════════════════════════════════
+const CLOUDINARY_CLOUD_NAME = 'z4r56ojl';
+const CLOUDINARY_UPLOAD_PRESET = 'mostem_unsigned'; // Cloudinary'de unsigned preset adı
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+const CLOUDINARY_MAX_SIZE_MB = 5; // maksimum yükleme boyutu
+
+let _selectedImageFile = null; // seçilen dosyayı bellekte tut
+
 function previewImg(input) {
   const preview = document.getElementById('postImgPreview');
+  const statusEl = document.getElementById('imgUploadStatus');
   if (input.files && input.files[0]) {
+    const file = input.files[0];
+    // Boyut kontrolü
+    if (file.size > CLOUDINARY_MAX_SIZE_MB * 1024 * 1024) {
+      if (statusEl) { statusEl.textContent = `❌ Resim ${CLOUDINARY_MAX_SIZE_MB}MB'dan küçük olmalıdır.`; statusEl.style.color = 'var(--red)'; }
+      input.value = '';
+      _selectedImageFile = null;
+      return;
+    }
+    _selectedImageFile = file;
     const reader = new FileReader();
-    reader.onload = e => { preview.src = e.target.result; preview.style.display = 'block'; };
-    reader.readAsDataURL(input.files[0]);
+    reader.onload = e => {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+      if (statusEl) { statusEl.textContent = '✅ Resim seçildi. Yayınla butonuna basınca yüklenecek.'; statusEl.style.color = 'var(--green)'; }
+    };
+    reader.readAsDataURL(file);
   }
 }
 
-function publishPost() {
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  formData.append('folder', 'mostem_forum');
+  const res = await fetch(CLOUDINARY_UPLOAD_URL, {
+    method: 'POST',
+    body: formData
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || 'Cloudinary yükleme hatası: ' + res.status);
+  }
+  const data = await res.json();
+  return data.secure_url; // sadece URL'i döndür, veri JSON'da saklanmaz
+}
+
+async function publishPost() {
   const title = document.getElementById('postTitle').value.trim();
   const detail = document.getElementById('postDetail').value.trim();
   if (!title || !detail) { toast('Başlık ve detay zorunludur.', 'error'); return; }
   const u = state.currentUser;
-  const imgEl = document.getElementById('postImgPreview');
-  const img = (imgEl.style.display !== 'none' && imgEl.src) ? imgEl.src : null;
+  const statusEl = document.getElementById('imgUploadStatus');
+  const publishBtn = document.getElementById('publishBtn');
+  if (publishBtn) publishBtn.disabled = true;
+
+  let imgUrl = null;
+  if (_selectedImageFile) {
+    if (statusEl) { statusEl.textContent = '⏳ Resim Cloudinary\'ye yükleniyor...'; statusEl.style.color = 'var(--text2)'; }
+    try {
+      imgUrl = await uploadToCloudinary(_selectedImageFile);
+      if (statusEl) { statusEl.textContent = '✅ Resim yüklendi!'; statusEl.style.color = 'var(--green)'; }
+    } catch (e) {
+      if (statusEl) { statusEl.textContent = '❌ Resim yüklenemedi: ' + e.message; statusEl.style.color = 'var(--red)'; }
+      if (publishBtn) publishBtn.disabled = false;
+      toast('Resim yüklenemedi, lütfen tekrar deneyin.', 'error');
+      return;
+    }
+  }
+
   const post = {
     id: 'p' + Date.now(),
-    title, detail, img,
+    title, detail,
+    img: imgUrl, // Cloudinary URL veya null — base64 asla!
     author: u.displayName,
     authorRole: u.role,
     likes: [],
@@ -1370,7 +1429,11 @@ function publishPost() {
   document.getElementById('postTitle').value = '';
   document.getElementById('postDetail').value = '';
   document.getElementById('postImg').value = '';
+  const imgEl = document.getElementById('postImgPreview');
   imgEl.style.display = 'none'; imgEl.src = '';
+  _selectedImageFile = null;
+  if (statusEl) { statusEl.textContent = ''; }
+  if (publishBtn) publishBtn.disabled = false;
   renderPosts();
   toast('Duyuru yayınlandı!', 'success');
 }
